@@ -126,6 +126,33 @@ test("integration: built-in iflow agent resolves to iflow --experimental-acp", a
   });
 });
 
+test("integration: built-in kiro agent resolves to kiro-cli-chat acp", async () => {
+  await withTempHome(async (homeDir) => {
+    const cwd = await fs.mkdtemp(path.join(os.tmpdir(), "acpx-integration-cwd-"));
+    const fakeBinDir = await fs.mkdtemp(path.join(os.tmpdir(), "acpx-fake-kiro-"));
+
+    try {
+      await writeFakeKiroAgent(fakeBinDir);
+
+      const result = await runCli(
+        ["--approve-all", "--cwd", cwd, "--format", "quiet", "kiro", "exec", "echo hello"],
+        homeDir,
+        {
+          env: {
+            PATH: `${fakeBinDir}${path.delimiter}${process.env.PATH ?? ""}`,
+          },
+        },
+      );
+
+      assert.equal(result.code, 0, result.stderr);
+      assert.match(result.stdout, /hello/);
+    } finally {
+      await fs.rm(fakeBinDir, { recursive: true, force: true });
+      await fs.rm(cwd, { recursive: true, force: true });
+    }
+  });
+});
+
 test("integration: exec forwards model, allowed-tools, and max-turns in session/new _meta", async () => {
   await withTempHome(async (homeDir) => {
     const cwd = await fs.mkdtemp(path.join(os.tmpdir(), "acpx-integration-cwd-"));
@@ -1642,6 +1669,45 @@ async function writeFakeIflowAgent(binDir: string): Promise<void> {
     [
       "#!/bin/sh",
       'if [ "$1" = "--experimental-acp" ]; then',
+      "  shift",
+      "fi",
+      `exec "${process.execPath}" "${MOCK_AGENT_PATH}" "$@"`,
+      "",
+    ].join("\n"),
+    { encoding: "utf8", mode: 0o755 },
+  );
+}
+
+async function writeFakeKiroAgent(binDir: string): Promise<void> {
+  if (process.platform === "win32") {
+    await fs.writeFile(
+      path.join(binDir, "kiro-cli.cmd"),
+      ["@echo off", "exit /b 91", ""].join("\r\n"),
+      { encoding: "utf8" },
+    );
+    await fs.writeFile(
+      path.join(binDir, "kiro-cli-chat.cmd"),
+      [
+        "@echo off",
+        "setlocal",
+        'if /I "%~1"=="acp" shift',
+        `"${process.execPath}" "${MOCK_AGENT_PATH}" %*`,
+        "",
+      ].join("\r\n"),
+      { encoding: "utf8" },
+    );
+    return;
+  }
+
+  await fs.writeFile(path.join(binDir, "kiro-cli"), ["#!/bin/sh", "exit 91", ""].join("\n"), {
+    encoding: "utf8",
+    mode: 0o755,
+  });
+  await fs.writeFile(
+    path.join(binDir, "kiro-cli-chat"),
+    [
+      "#!/bin/sh",
+      'if [ "$1" = "acp" ]; then',
       "  shift",
       "fi",
       `exec "${process.execPath}" "${MOCK_AGENT_PATH}" "$@"`,

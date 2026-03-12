@@ -81,7 +81,7 @@ Friendly agent names resolve to commands:
 - `droid` -> `droid exec --output-format acp`
 - `kimi` -> `kimi acp`
 - `opencode` -> `npx -y opencode-ai acp`
-- `kiro` -> `kiro-cli acp`
+- `kiro` -> `kiro-cli-chat acp`
 - `kilocode` -> `npx -y @kilocode/cli acp`
 - `qwen` -> `qwen --acp`
 
