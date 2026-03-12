@@ -12,6 +12,7 @@ Repo: https://github.com/openclaw/acpx
 
 ### Fixes
 
+- Agents/kiro: run the built-in Kiro agent through `kiro-cli-chat acp`, sync the harness docs, and add coverage for the built-in command path. (#124) Thanks @vokako and @vincentkoc.
 - Agents/gemini: default to `--acp` for Gemini CLI and fall back to `--experimental-acp` for pre-0.33 releases. (#113)
 - ACP/prompt blocks: preserve structured ACP prompt blocks instead of flattening them during prompt handling to support images and non-text. (#103) Thanks @vincentkoc.
 - Images/prompt validation: validate structured image prompt block MIME types and base64 payloads, emit human-readable CLI usage errors, and add an explicit non-CI live Cursor ACP smoke test path. Thanks @vincentkoc.
