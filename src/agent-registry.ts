@@ -16,7 +16,7 @@ export const AGENT_REGISTRY: Record<string, string> = {
   iflow: "iflow --experimental-acp",
   kilocode: "npx -y @kilocode/cli acp",
   kimi: "kimi acp",
-  kiro: "kiro-cli acp",
+  kiro: "kiro-cli-chat acp",
   opencode: "npx -y opencode-ai acp",
   qwen: "qwen --acp",
 };
