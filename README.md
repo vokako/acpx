@@ -339,7 +339,7 @@ Built-ins:
 | `iflow`    | native (`iflow --experimental-acp`)                                         | [iFlow CLI](https://github.com/iflow-ai/iflow-cli)                                                              |
 | `kilocode` | `npx -y @kilocode/cli acp`                                                  | [Kilocode](https://kilocode.ai)                                                                                 |
 | `kimi`     | native (`kimi acp`)                                                         | [Kimi CLI](https://github.com/MoonshotAI/kimi-cli)                                                              |
-| `kiro`     | native (`kiro-cli acp`)                                                     | [Kiro CLI](https://kiro.dev)                                                                                    |
+| `kiro`     | native (`kiro-cli-chat acp`)                                                | [Kiro CLI](https://kiro.dev)                                                                                    |
 | `opencode` | `npx -y opencode-ai acp`                                                    | [OpenCode](https://opencode.ai)                                                                                 |
 | `qoder`    | native (`qodercli --acp`)                                                   | [Qoder CLI](https://docs.qoder.com/cli/acp)                                                                     |
 | `qwen`     | native (`qwen --acp`)                                                       | [Qwen Code](https://github.com/QwenLM/qwen-code)                                                                |

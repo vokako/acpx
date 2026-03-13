@@ -22,6 +22,7 @@ Repo: https://github.com/openclaw/acpx
 
 ### Fixes
 
+- Agents/kiro: use `kiro-cli-chat acp` for the built-in Kiro adapter command to avoid orphan child processes. (#129) Thanks @vokako.
 - Agents/cursor: recognize Cursor's `Session \"...\" not found` `session/load` error format so reconnects fall back to `session/new` instead of failing. (#162) Thanks @log-li.
 - Output/thinking: preserve line breaks in text-mode `[thinking]` output instead of flattening multi-line thought chunks into one line. (#144) Thanks @Huarong.
 - Sessions/load: fall back to a fresh ACP session when adapters reject `session/load` with JSON-RPC `-32601` or `-32602`, so persistent session reconnects do not crash on partial load support. (#174) Thanks @Bortlesboat.
