@@ -37,6 +37,11 @@ test("trae built-in uses the standard traecli executable", () => {
   assert.equal(resolveAgentCommand("trae"), "traecli acp serve");
 });
 
+test("kiro built-in uses kiro-cli-chat directly", () => {
+  assert.equal(AGENT_REGISTRY.kiro, "kiro-cli-chat acp");
+  assert.equal(resolveAgentCommand("kiro"), "kiro-cli-chat acp");
+});
+
 test("listBuiltInAgents preserves the required example prefix and alphabetical tail", () => {
   const agents = listBuiltInAgents();
   assert.deepEqual(agents, Object.keys(AGENT_REGISTRY));
